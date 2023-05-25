@@ -15,9 +15,17 @@
     "commands": [
       {
         "command": "codescenery.capture",
-        "title": "Code Scenery"
+        "title": "🎦 Code Scenery 🎦"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codescenery.capture",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
