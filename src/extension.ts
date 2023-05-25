@@ -7,20 +7,24 @@ const WEB_VIEW_TITLE = 'Code Scenery';
 
 const init = (context: vscode.ExtensionContext) => {
     const activeTextEditor = vscode.window.activeTextEditor;
-
-    const panel = createPanel(context);
-
-    const selectionHandler = vscode.window.onDidChangeTextEditorSelection(e => {
-        if (hasTextSelected(e.textEditor.selection)) {
-            update(panel);
-        }
-    });
-
-    panel.onDidDispose(() => selectionHandler.dispose());
-
-    if (hasTextSelected(activeTextEditor?.selection)) {
-        update(panel);
-    }
+	if(activeTextEditor){
+		const panel = createPanel(context);
+		const selectionHandler = vscode.window.onDidChangeTextEditorSelection(e => {
+			if (hasTextSelected(e.textEditor.selection)) {
+				update(panel);
+			}
+		});
+	
+		panel.onDidDispose(() => selectionHandler.dispose());
+	
+		if (hasTextSelected(activeTextEditor?.selection)) {
+			update(panel);
+		}
+	}else{
+		//@desc Handle no text selection
+		vscode.window.showErrorMessage("There is no text selected");
+	}
+   
 };
 
 const createPanel = (context: vscode.ExtensionContext): vscode.WebviewPanel => {
