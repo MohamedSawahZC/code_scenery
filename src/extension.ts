@@ -1,25 +1,75 @@
-
 import * as vscode from 'vscode';
-import { extractSelectedText } from './helpers/code_extractor';
-import { showSelectedCodeAsReadme } from './helpers/show_selected_code';
+import * as path from 'path';
+import * as fs from 'fs';
 
+const VIEW_TYPE = 'codescenery';
+const WEB_VIEW_TITLE = 'Code Scenery';
 
-export function activate(context: vscode.ExtensionContext) {
+const init = (context: vscode.ExtensionContext) => {
+    const activeTextEditor = vscode.window.activeTextEditor;
 
+    const panel = createPanel(context);
 
-	//1) Context Subscription
-	context.subscriptions.push(
-	//1) Extract Selected Text
-	vscode.commands.registerCommand("codescenery.capture",()=>{
-		const selectedText : string = extractSelectedText() ?? "There is no selected text";
-		if(selectedText){
-			showSelectedCodeAsReadme(selectedText);
-		}else{
-			vscode.window.showErrorMessage("No selected text");
-		}
-	})
-	);
-} 
+    const selectionHandler = vscode.window.onDidChangeTextEditorSelection(e => {
+        if (hasTextSelected(e.textEditor.selection)) {
+            update(panel);
+        }
+    });
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+    panel.onDidDispose(() => selectionHandler.dispose());
+
+    if (hasTextSelected(activeTextEditor?.selection)) {
+        update(panel);
+    }
+};
+
+const createPanel = (context: vscode.ExtensionContext): vscode.WebviewPanel => {
+    const htmlTemplatePath = path.resolve(context.extensionPath, 'webview/index.html');
+    const iconPath = path.resolve(context.extensionPath, 'webview/assets/images/icon-label.png');
+    const panel = vscode.window.createWebviewPanel(
+        VIEW_TYPE,
+        WEB_VIEW_TITLE,
+        vscode.ViewColumn.Two,
+        {
+            enableScripts: true,
+            localResourceRoots: [vscode.Uri.file(context.extensionPath)]
+        }
+    );
+
+    panel.iconPath = vscode.Uri.file(iconPath);
+
+    panel.webview.html = getTemplate(htmlTemplatePath, panel);
+
+    return panel;
+};
+
+const getTemplate = (htmlTemplatePath: string, panel: vscode.WebviewPanel): string => {
+    const htmlContent = fs.readFileSync(htmlTemplatePath, 'utf-8');
+    return htmlContent
+        .replace(/%CSP_SOURCE%/gu, panel.webview.cspSource)
+        .replace(/(src|href)="([^"]*)"/gu, (_, match, src) => {
+            let assetsPath = panel.webview.asWebviewUri(
+                vscode.Uri.file(path.resolve(htmlTemplatePath, '..', src))
+            );
+            return `${match}="${assetsPath}"`;
+        });
+};
+
+const update = (panel: vscode.WebviewPanel): void => {
+    vscode.commands.executeCommand('editor.action.codescenery');
+
+    panel.webview.postMessage({
+        type: 'updateCode'
+    });
+};
+
+const hasTextSelected = (selection: vscode.Selection | undefined): Boolean =>
+    !!selection && !selection.isEmpty;
+
+export const activate = (context: vscode.ExtensionContext) => {
+    return context.subscriptions.push(
+        vscode.commands.registerCommand('codescenery.capture', () => init(context))
+    );
+};
+
+export const deactivate = () => {};
