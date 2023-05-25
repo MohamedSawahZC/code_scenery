@@ -6,8 +6,41 @@
   "engines": {
     "vscode": "^1.78.0"
   },
+  "icon": "icon.png",
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "snapshot",
+    "snippet",
+    "code",
+    "screenshot",
+    "javascript",
+    "js",
+    "jsx",
+    "flow",
+    "typescript",
+    "ts",
+    "json",
+    "css",
+    "less",
+    "scss",
+    "styled-components",
+    "styled-jsx",
+    "markdown",
+    "md",
+    "commonmark",
+    "mdx",
+    "php",
+    "pug",
+    "ruby",
+    "swift",
+    "html",
+    "vue",
+    "angular",
+    "graphql",
+    "yaml",
+    "yml"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
@@ -55,6 +88,7 @@
     "@vscode/test-electron": "^2.3.0"
   },
   "dependencies": {
-    "highlight.js": "^11.8.0"
+    "dom-to-image": "^2.6.0",
+    "file-saver": "^2.0.5"
   }
 }

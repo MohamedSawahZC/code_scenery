@@ -5,21 +5,39 @@ const terminalNode = document.querySelector('.terminal');
 export const takeSnapshot = () => {
     snapshotContainerNode.style.resize = 'none';
     terminalNode.style.resize = 'none';
+    const exportSvgNode = document.getElementById('export-svg');
 
-    domtoimage
-        .toBlob(snapshotContainerBackgroundNode, {
-            width: snapshotContainerBackgroundNode.offsetWidth * 2,
-            height: snapshotContainerBackgroundNode.offsetHeight * 2,
-            style: {
-                transform: 'scale(2)',
-                'transformOrigin': 'center',
-                background: '#e0eafc',
-                background: 'linear-gradient(to left, #e0eafc, #cfdef3);'
-            }
-        })
-        .then(function(blob) {
-            snapshotContainerNode.style.resize = '';
-            terminalNode.style.resize = '';
-            window.saveAs(blob, 'code-scenery.jpg');
-        });
+    const resetStyles = () => {
+        snapshotContainerNode.style.resize = '';
+        terminalNode.style.resize = '';
+    };
+    const options = {
+        width: snapshotContainerBackgroundNode.offsetWidth * 2,
+        height: snapshotContainerBackgroundNode.offsetHeight * 2,
+        style: {
+            transform: 'scale(2)',
+            'transformOrigin': 'center',
+            background: '#e0eafc',
+            background: 'linear-gradient(to left, #e0eafc, #cfdef3);'
+        }
+    };
+
+    if (exportSvgNode.checked) {
+        domtoimage
+            .toSvg(snapshotContainerBackgroundNode, options)
+            .then(function (dataUrl) {
+                resetStyles();
+                var link = document.createElement('a');
+                link.download = 'codescenery.svg';
+                link.href = dataUrl;
+                link.click();
+            });
+    } else {
+        domtoimage
+            .toBlob(snapshotContainerBackgroundNode, options)
+            .then(function (blob) {
+                resetStyles();
+                window.saveAs(blob, 'codescenery.png');
+            });
+    }
 };

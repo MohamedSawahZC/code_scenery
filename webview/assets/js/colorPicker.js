@@ -64,7 +64,7 @@ var colorPicker = {
 
         let val = input.value;
 
-        if (val.length < 3) return;
+        if (val.length < 3) {return;}
 
         if (val.includes('gradient')) {
             this.initGradient(val);
