@@ -20,6 +20,6 @@ export const takeSnapshot = () => {
         .then(function(blob) {
             snapshotContainerNode.style.resize = '';
             terminalNode.style.resize = '';
-            window.saveAs(blob, 'code-snapshot.png');
+            window.saveAs(blob, 'code-scenery.jpg');
         });
 };
