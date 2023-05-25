@@ -15,7 +15,10 @@ const init = (context: vscode.ExtensionContext) => {
 			}
 		});
 	
-		panel.onDidDispose(() => selectionHandler.dispose());
+		panel.onDidDispose(() => {
+			selectionHandler.dispose();
+			vscode.window.showInformationMessage("See you later ❤️");
+		});
 	
 		if (hasTextSelected(activeTextEditor?.selection)) {
 			update(panel);
@@ -76,4 +79,3 @@ export const activate = (context: vscode.ExtensionContext) => {
     );
 };
 
-export const deactivate = () => {};
