@@ -2,7 +2,7 @@ const snapshotContainerNode = document.querySelector('.snapshot-container');
 const snapshotContainerBackgroundNode = document.querySelector('.snapshot-container__background');
 const terminalNode = document.querySelector('.terminal');
 
-export const takeSnapshot = () => {
+export const takeSnapshot = (filename) => {
     snapshotContainerNode.style.resize = 'none';
     terminalNode.style.resize = 'none';
     const exportSvgNode = document.getElementById('export-svg');
@@ -28,7 +28,7 @@ export const takeSnapshot = () => {
             .then(function (dataUrl) {
                 resetStyles();
                 var link = document.createElement('a');
-                link.download = 'codescenery.svg';
+                link.download = `codescenery-${filename}.svg`;
                 link.href = dataUrl;
                 link.click();
             });
@@ -37,7 +37,7 @@ export const takeSnapshot = () => {
             .toBlob(snapshotContainerBackgroundNode, options)
             .then(function (blob) {
                 resetStyles();
-                window.saveAs(blob, 'codescenery.png');
+                window.saveAs(blob, `codescenery-${filename}.png`);
             });
     }
 };

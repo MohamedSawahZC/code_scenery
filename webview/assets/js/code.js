@@ -63,3 +63,16 @@ export const hideLineNumbers = () => {
     editorLineNumbers.forEach(element => (element.style.display = 'none'));
     setProperty('editor-line-padding-left', '0px');
 };
+
+
+export const getCurrentTimeString = () => {
+
+    // get current time in string format for use in filename
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    const filename = `${year}-${month}-${day}`;
+
+    return filename;
+};
