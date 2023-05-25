@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/vscode%20version-v1.60%2B-blue.svg" alt="VS Code Version" />
+  <img src="https://img.shields.io/badge/vscode%20version-v1.0%2B-blue.svg" alt="VS Code Version" />
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
 </p>
 
@@ -13,6 +13,12 @@
 
 
 </p>
+
+## 📺 Demo
+
+[![Video Title](https://i.ibb.co/HpkQMsY/image.png)](https://stream.new/v/rjvy4k2OVs1L8PTShNUcwjlL027EjHxQCywfgn9ncN01Y)
+
+
 
 ## 🚀 Features
 
