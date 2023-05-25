@@ -92,12 +92,12 @@ var colorPicker = {
         let controls = val.match(/\((.*?)\)/g);
 
         // in case custom gradient input
-        if (!controls) return;
+        if (!controls) {return;}
 
         controls.forEach(function (v, k) {
 
             let rgb = v.replace(/[^\d,]/g, '').split(',').map(function (v) {
-                return parseFloat(v)
+                return parseFloat(v);
             });
 
             if (rgb.length > 3) {
@@ -114,7 +114,7 @@ var colorPicker = {
 
     initRgb: function (val) {
         let rgb = val.replace(/[^\d,]/g, '').split(',').map(function (v) {
-            return parseFloat(v)
+            return parseFloat(v);
         });
 
         if (rgb.length > 3) {
@@ -136,7 +136,7 @@ var colorPicker = {
         this.area.style.background = 'hsl(' + parseInt(this.h * 360) + ', 100%, 50%)';
         this.alphaRange.style.background = 'linear-gradient(to right, rgba(' + n.join(',') + ', 0) 0%, rgb(' + n.join(',') + ') 100%)';
 
-        if (this.alpha == 1) {
+        if (this.alpha === 1) {
             this.value = hex;
         } else {
             this.value = 'rgba(' + n.join(',') + ',' + this.alpha + ' )';
@@ -270,11 +270,11 @@ var colorPicker = {
     },
 
     setCurrent: function (hex) {
-        if (hex.length < 6) return;
+        if (hex.length < 6) {return;}
 
         let rgb = this.hexRgb(hex);
 
-        if (!rgb) return;
+        if (!rgb) {return;}
 
         this.update(rgb);
 
@@ -297,7 +297,7 @@ var colorPicker = {
             // firefox fix
             bg = bg.replace(' none repeat scroll 0% 0%', '');
             let rgb = bg.replace(/[^\d,]/g, '').split(',').map(function (v) {
-                return parseFloat(v)
+                return parseFloat(v);
             });
 
             if (typeof rgb[3] !== 'undefined') {
@@ -420,7 +420,7 @@ var colorPicker = {
                 return (v - c) / 6 / diff + 1 / 2;
             };
 
-        if (diff == 0) {
+        if (diff === 0) {
             h = s = 0;
         } else {
             s = diff / v;
@@ -442,7 +442,7 @@ var colorPicker = {
             }
         }
 
-        return [parseFloat(h.toFixed(3)), parseFloat(s.toFixed(3)), parseFloat(v.toFixed(3))]
+        return [parseFloat(h.toFixed(3)), parseFloat(s.toFixed(3)), parseFloat(v.toFixed(3))];
     },
 
     rgbHex: function (rgb) {

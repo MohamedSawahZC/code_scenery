@@ -12,7 +12,7 @@ export const takeSnapshot = () => {
             height: snapshotContainerBackgroundNode.offsetHeight * 2,
             style: {
                 transform: 'scale(2)',
-                'transform-origin': 'center',
+                'transformOrigin': 'center',
                 background: '#e0eafc',
                 background: 'linear-gradient(to left, #e0eafc, #cfdef3);'
             }
