@@ -63,3 +63,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 For any questions or issues, please [open an issue](https://github.com/MohamedSawahZC/code_scenery/issues) on GitHub.
 
+
+---
+
+### Live
+
+<a href="https://marketplace.visualstudio.com/items?itemName=MohamedSawah.codescenery">VS Code Store</a>
