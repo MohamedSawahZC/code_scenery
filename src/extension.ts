@@ -72,7 +72,7 @@ const getTemplate = (htmlTemplatePath: string, panel: vscode.WebviewPanel): stri
 };
 
 const update = (panel: vscode.WebviewPanel): void => {
-    vscode.commands.executeCommand('editor.action.codescenery');
+    vscode.commands.executeCommand('editor.action.clipboardCopyAction');
 
     // Send a message to the webview to trigger the code update
     panel.webview.postMessage({
