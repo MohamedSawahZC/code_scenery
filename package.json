@@ -1,10 +1,15 @@
 {
   "name": "codescenery",
-  "displayName": "codescenery",
+  "displayName": "Code Scenery",
   "description": "It's an extension that helps create code screenshots with a customized theme for easy sharing.",
   "version": "0.0.1",
+  "publisher": "MohamedSawah",
   "engines": {
     "vscode": "^1.78.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MohamedSawahZC/code_scenery"
   },
   "icon": "icon.png",
   "categories": [
